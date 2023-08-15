@@ -1,13 +1,16 @@
 local rooms = {
   introduction = {
     description = "You find yourself in the village of Barovia...",
+    shortDescription = "Village of Barovia",
     exits = { north = "houseEntrance" },
     hiddenExits = { secret = "secretRoom" },
+    investigationDC = 15,
     items = {
       sign = {
         description = "The sign reads: 'Welcome to Barovia.'"
       }
-    }
+    },
+
   },
   houseEntrance = {
     description = "You stand before the Durst Mansion...",

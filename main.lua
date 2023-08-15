@@ -14,7 +14,15 @@ end
 
 -- Game loop
 while true do
-  print(getRoomDescription(rooms[player.currentRoom]))
+  -- Check if player has visited the room before
+  if player.visitedRooms[player.currentRoom] then
+    print(rooms[player.currentRoom].shortDescription)
+  else
+    print(getRoomDescription(rooms[player.currentRoom]))
+    player.visitedRooms[player.currentRoom] = true -- Mark room as visited
+
+  end
+
   print("\nWhat do you want to do?")
   local input = io.read()
   local action, argument = input:match("^(%w+)%s*(%w*)$")

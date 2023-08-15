@@ -5,6 +5,9 @@ local function rollD20()
   return math.random(1, 20)
 end
 
+local easyRoll = 5
+local mediumRoll = 10
+local hardRoll = 15
 local actions = {
   go = function(direction)
     local newRoom = rooms[player.currentRoom].exits[direction]
@@ -44,16 +47,20 @@ local actions = {
   investigate = function()
     local roll = rollD20()
     print("You rolled a " .. roll .. ".")
-    if roll > 10 and rooms[player.currentRoom].hiddenExits then
-      for direction, room in pairs(rooms[player.currentRoom].hiddenExits) do
-        print("You've discovered a hidden exit to the " .. direction .. "!")
-        rooms[player.currentRoom].exits[direction] = room
+    local currentRoom = rooms[player.currentRoom]
+    if currentRoom.investigationDC and roll >= currentRoom.investigationDC then
+      if currentRoom.hiddenExits then
+        for direction, room in pairs(currentRoom.hiddenExits) do
+          print("You've discovered a hidden exit to the " .. direction .. "!")
+          currentRoom.exits[direction] = room
 
-        -- Append details about the entry point to the room's description
-        rooms[player.currentRoom].description = rooms[player.currentRoom].description ..
-            "\nYou notice a concealed entrance leading " .. direction .. "."
+          -- Append details about the entry point to the room's description
+          currentRoom.description = currentRoom.description ..
+              "\nYou notice a concealed entrance leading " .. direction .. "."
+        end
+        currentRoom.hiddenExits = nil -- Remove hidden exits after they're discovered
       end
-      rooms[player.currentRoom].hiddenExits = nil -- Remove hidden exits after they're discovered
+      -- ... handle other hidden objects similarly ...
     else
       print("You didn't find anything unusual.")
     end
