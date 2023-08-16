@@ -12,14 +12,12 @@ local function getRoomDescription(room)
   return description
 end
 
--- Game loop
 while true do
-  -- Check if player has visited the room before
   if player.visitedRooms[player.currentRoom] then
     print(rooms[player.currentRoom].shortDescription)
   else
     print(getRoomDescription(rooms[player.currentRoom]))
-    player.visitedRooms[player.currentRoom] = true -- Mark room as visited
+    player.visitedRooms[player.currentRoom] = true
 
   end
 

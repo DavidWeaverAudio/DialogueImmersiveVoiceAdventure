@@ -9,6 +9,12 @@ local easyRoll = 5
 local mediumRoll = 10
 local hardRoll = 15
 local actions = {
+  help = function(direction)
+    print("You can;\ntake\ninspect\ninventory\ngo\ninvestigate")
+  end,
+  where = function()
+    print(rooms[player.currentRoom].description)
+  end,
   go = function(direction)
     local newRoom = rooms[player.currentRoom].exits[direction]
     if newRoom then
@@ -17,6 +23,7 @@ local actions = {
       print("You can't go that way!")
     end
   end,
+
   inspect = function(item)
     if rooms[player.currentRoom].items and rooms[player.currentRoom].items[item] then
       print(rooms[player.currentRoom].items[item].description)
@@ -24,6 +31,7 @@ local actions = {
       print("You don't see that here.")
     end
   end,
+
   take = function(item)
     if rooms[player.currentRoom].items and rooms[player.currentRoom].items[item] then
       table.insert(player.inventory, item)
@@ -44,6 +52,7 @@ local actions = {
       end
     end
   end,
+
   investigate = function()
     local roll = rollD20()
     print("You rolled a " .. roll .. ".")
@@ -54,13 +63,11 @@ local actions = {
           print("You've discovered a hidden exit to the " .. direction .. "!")
           currentRoom.exits[direction] = room
 
-          -- Append details about the entry point to the room's description
           currentRoom.description = currentRoom.description ..
               "\nYou notice a concealed entrance leading " .. direction .. "."
         end
-        currentRoom.hiddenExits = nil -- Remove hidden exits after they're discovered
+        currentRoom.hiddenExits = nil
       end
-      -- ... handle other hidden objects similarly ...
     else
       print("You didn't find anything unusual.")
     end
