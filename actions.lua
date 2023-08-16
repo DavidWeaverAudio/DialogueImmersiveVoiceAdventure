@@ -12,6 +12,11 @@ local actions = {
   help = function(direction)
     print("You can;\ntake\ninspect\ninventory\ngo\ninvestigate")
   end,
+  
+  dir = function()
+    print(rooms[player.currentRoom].directions)
+  end,
+  
   where = function()
     print(rooms[player.currentRoom].description)
   end,
