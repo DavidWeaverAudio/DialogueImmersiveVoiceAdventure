@@ -8,6 +8,9 @@ end
 local easyRoll = 5
 local mediumRoll = 10
 local hardRoll = 15
+
+local rooms = GetRooms()
+
 local actions = {
   help = function(direction)
     print("You can;\ntake\ninspect\ninventory\ngo\ninvestigate")
@@ -20,15 +23,28 @@ local actions = {
   where = function()
     print(rooms[player.currentRoom].description)
   end,
-  go = function(direction)
-    local newRoom = rooms[player.currentRoom].exits[direction]
-    if newRoom then
-      player.currentRoom = newRoom
-    else
-      print("You can't go that way!")
-    end
-  end,
+  
+go = function(destination)
+        local currentRoom = rooms[player.currentRoom]
+        local actualDirection = currentRoom.directionPhrases[destination] or destination
 
+        local newRoom = currentRoom.exits[actualDirection]
+        if newRoom then
+      table.insert(player.roomHistory, player.currentRoom)
+            player.currentRoom = newRoom
+        else
+      --print(string.format("you tried to go '%s'",actualDirection))
+            print("You can't go that way!")
+        end
+    end,
+back = function()
+        if #player.roomHistory > 0 then
+            player.currentRoom = table.remove(player.roomHistory)
+            print(rooms[player.currentRoom].description)
+        else
+            print("You can't go back from here!")
+        end
+    end,
   inspect = function(item)
     if rooms[player.currentRoom].items and rooms[player.currentRoom].items[item] then
       print(rooms[player.currentRoom].items[item].description)

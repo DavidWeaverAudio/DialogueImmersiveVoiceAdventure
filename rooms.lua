@@ -1,10 +1,26 @@
+local function getRoomDescription(room)
+  local description = room.description
+  if room.items then
+    for item, details in pairs(room.items) do
+      description = description .. "\nYou see a " .. item .. " here."
+    end
+  end
+  return description
+end
+
 local rooms = {
   introduction = {
-    description = "You find yourself in the village of Barovia. There's a spooky house on the hill (aa)",
+    description = "You find yourself in the village of Barovia. There's a spooky house on the hill",
     shortDescription = "Village of Barovia",
-    directions = "\nHouse On the Hill : aa",
+    directions = "\nHouse On the Hill",
+    directionPhrases = {
+            ["to the entrance"] = "houseEntrance",
+            ["through the gate"] = "houseEntrance",
+            ["to the door"] = "houseEntrance",
+            ["to the house"] = "houseEntrance"
+        },
     exits = { 
-      aa = "houseEntrance",
+     houseEntrance = "houseEntrance",
     },
     hiddenExits = { 
       secret = "secretRoom",
@@ -64,4 +80,15 @@ local rooms = {
   }
 }
 
-return rooms
+function GetRooms()
+    return rooms
+end
+
+function DisplayRoomDescription(player)
+  if player.visitedRooms[player.currentRoom] then
+    print(rooms[player.currentRoom].shortDescription)
+  else
+    print(getRoomDescription(rooms[player.currentRoom]))
+    player.visitedRooms[player.currentRoom] = true
+  end
+end
