@@ -14,15 +14,15 @@ local rooms = {
     shortDescription = "Village of Barovia",
     directions = "\nHouse On the Hill",
     directionPhrases = {
-            ["to the entrance"] = "houseEntrance",
-            ["through the gate"] = "houseEntrance",
-            ["to the door"] = "houseEntrance",
-            ["to the house"] = "houseEntrance"
-        },
-    exits = { 
-     houseEntrance = "houseEntrance",
+      ["to the entrance"] = "houseEntrance",
+      ["through the gate"] = "houseEntrance",
+      ["to the door"] = "houseEntrance",
+      ["to the house"] = "houseEntrance"
     },
-    hiddenExits = { 
+    exits = {
+      houseEntrance = "houseEntrance",
+    },
+    hiddenExits = {
       secret = "secretRoom",
     },
     investigationDC = 18,
@@ -34,22 +34,22 @@ local rooms = {
   },
 
   houseEntrance = {
-    description = "The gate is unlocked and it's rusty hinges shriek when the gate is opened. Oil lamps hang from the portico ceiling by chains, flanking a set of oaken doors that open into a grand FOYER (a0). Back the way you came is the VILLAGE (aa)",
+    description = "The gate is unlocked and it's rusty hinges shriek when the gate is opened. Oil lamps hang from the portico ceiling by chains, flanking a set of oaken doors that open into a Grand Foyer.",
     shortDescription = "The entrance to the house.",
-    directions = "\nBack the way you came : aa\nThe grand Foyer : a0",
-    exits = { 
-      aa = "introduction", 
-      a0 = "grandFoyer" ,
+    directions = "\nThe grand Foyer\nOutside the House",
+    exits = {
+      introduction = "introduction",
+      grandFoyer = "grandFoyer",
     },
   },
 
   grandFoyer = {
-    description = "Hanging on the south wall of the foyer is a shield emblazoned with the coat-of-arms (a stylized golden windmill on a red field), flanked by framed portraits of stony-faced aristocrats (long-dead members of the Durst Family). Mahogany framed double doors leading from the foyer to the MAIN HALL (a2) are set with panes of stained glass. Behind your, doors lead OUTSIDE (a1)",
+    description = "Hanging on the south wall of the foyer is a shield emblazoned with the coat-of-arms (a stylized golden windmill on a red field), flanked by framed portraits of stony-faced aristocrats (long-dead members of the Durst Family). Mahogany framed double doors leading from the foyer to the Main Hall are set with panes of stained glass. Behind your, doors lead Outside",
     shortDescription = "Grand Foyer",
-    directions = "\n Doors to Outside : a1\nMain Hall : a2",
-    exits = { 
-      a1 = "houseEntrance", 
-      a2 = "mainHall" 
+    directions = "\nDoors to Outside\nMain Hall",
+    exits = {
+      a1 = "houseEntrance",
+      a2 = "mainHall"
     },
     items = {
       doll = {
@@ -59,17 +59,17 @@ local rooms = {
   },
   secretRoom = {
     description = "You've discovered a secret room...",
-    exits = { 
-      west = "houseEntrance" 
+    exits = {
+      west = "houseEntrance"
     },
   },
   mainHall = {
     description = "A wide hall (area 2A) runs the width of the house, with a black marble fireplace at one end and a sweeping red marble staircase at the other. Mounted on the wall above the fireplace is a longsword (nonmagical) with a windmill camero worked into the hilt. The wood-panelled walls are ornately sculpted with images of vines, flowers, nymps, and satyrs. Characters who search the walls for secret doors or otherwise inspect the paneling can, with a successful DC12 wisdom (perception) check, see serpents and skulls inconscipuously woven into the wall designs. The decorative paneling follows a staircase as it circles upward to the second floor. A cloakroom, (area 2D) has several black cloaks hanging from hooks on the walls. A top hat sits on a high shelf.",
     shortDescription = "Main Hall",
     directions = "\n Grand Foyer : a2\nDen Of Wolves : a3",
-    exits = { 
-      a2 = 'grandFoyer', 
-      a3 = 'denOfWolves' 
+    exits = {
+      a2 = 'grandFoyer',
+      a3 = 'denOfWolves'
     },
   },
   denOfWolves = {
@@ -81,7 +81,7 @@ local rooms = {
 }
 
 function GetRooms()
-    return rooms
+  return rooms
 end
 
 function DisplayRoomDescription(player)
