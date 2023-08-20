@@ -15,3 +15,11 @@ This oak-paneled room looks like a hunter's den. Mounted above the fireplace is 
 
 Two cabinets tand against the walls. The east cabinet sports a lock that can be picked with thieves' tools and a successful DC 15 dexterity check. It holds a heavy crossbow, a light crossbow, a hand crossbow, and 20 bolts for each weapon. The north cabinet is unlocked and holds a small box containing a deck of playing cards and an assortment of wine glasses. 
 A trapdoor is hidden in the southwest corner of the floor. it can't be detected or opened until the characters approach it from the underside. Until then, the death house supernaturally hides the trapdoor.
+
+```mermaid
+graph TD;
+    Entrance-->Grand Foyer;
+    Grand Foyer-->Main Hall;
+    Main Hall-->Den Of Wolves;
+    Den Of Wolves -->Main Hall;
+```

@@ -15,36 +15,37 @@ local actions = {
   help = function(direction)
     print("You can;\ntake\ninspect\ninventory\ngo\ninvestigate")
   end,
-  
+
   dir = function()
     print(rooms[player.currentRoom].directions)
   end,
-  
-  where = function()
-    print(rooms[player.currentRoom].description)
-  end,
-  
-go = function(destination)
-        local currentRoom = rooms[player.currentRoom]
-        local actualDirection = currentRoom.directionPhrases[destination] or destination
 
-        local newRoom = currentRoom.exits[actualDirection]
-        if newRoom then
+  where = function()
+    GetFullRoomDescription(player)
+  end,
+
+  go = function(destination)
+    if destination == "back" then
+      if #player.roomHistory > 0 then
+        player.currentRoom = table.remove(player.roomHistory)
+        return
+      else
+        print("You can't go back from here!")
+        return
+      end
+    end
+    local currentRoom = rooms[player.currentRoom]
+    local actualDirection = currentRoom.directionPhrases[destination] or destination
+    local newRoom = currentRoom.exits[actualDirection]
+    if newRoom then
       table.insert(player.roomHistory, player.currentRoom)
-            player.currentRoom = newRoom
-        else
+      player.currentRoom = newRoom
+    else
       --print(string.format("you tried to go '%s'",actualDirection))
-            print("You can't go that way!")
-        end
-    end,
-back = function()
-        if #player.roomHistory > 0 then
-            player.currentRoom = table.remove(player.roomHistory)
-            print(rooms[player.currentRoom].description)
-        else
-            print("You can't go back from here!")
-        end
-    end,
+      print("You can't go that way!")
+    end
+  end,
+
   inspect = function(item)
     if rooms[player.currentRoom].items and rooms[player.currentRoom].items[item] then
       print(rooms[player.currentRoom].items[item].description)
@@ -92,7 +93,26 @@ back = function()
     else
       print("You didn't find anything unusual.")
     end
-  end
-}
+  end,
+  
+useSkill = function(skill, target)
+        local currentRoom = rooms[player.currentRoom]
+        local item = currentRoom.items and currentRoom.items[target]
+        if item and item.interactions and item.interactions[skill] then
+            local roll = rollD20() + player.skills[skill]
+            if roll >= 10 then
+                if type(item.interactions[skill].success) == "function" then
+                    item.interactions[skill].success()
+                else
+                    print(item.interactions[skill].success)
+                end
+            else
+                print(item.interactions[skill].fail)
+            end
+        else
+            print("You can't use that skill here.")
+        end
+    end,
 
+}
 return actions
