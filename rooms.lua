@@ -1,4 +1,4 @@
-local function getRoomDescription(room)
+function getRoomDescription(room)
   local description = room.description
   if room.items then
     for item, details in pairs(room.items) do
@@ -30,6 +30,20 @@ local rooms = {
       sign = {
         description = "The sign reads: 'Welcome to Barovia.'",
       },
+      cow = {
+                description = "A calm-looking cow grazes here.",
+                interactions = {
+                    animalHandling = {
+                        success = function()
+                            print("You successfully calm the cow and it seems to trust you. It nudges you with its head, drawing your attention to its bell.")
+                            GetRooms().introduction.items.bell = {
+                                description = "A shiny bell that was hanging around the cow's neck."
+                            }
+                        end,
+                        fail = "The cow seems agitated by your approach."
+                    }
+                }
+            },
     },
   },
 
@@ -91,4 +105,8 @@ function DisplayRoomDescription(player)
     print(getRoomDescription(rooms[player.currentRoom]))
     player.visitedRooms[player.currentRoom] = true
   end
+end
+
+function GetFullRoomDescription(player)
+print(getRoomDescription(rooms[player.currentRoom]))
 end
