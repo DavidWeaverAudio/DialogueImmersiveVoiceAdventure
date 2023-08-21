@@ -4,8 +4,5 @@ local player = {
   inventory = {},
   visitedRooms = {},
   roomHistory = {},
-  skills = {
-        animalHandling = 5,
-  }
 }
 return player

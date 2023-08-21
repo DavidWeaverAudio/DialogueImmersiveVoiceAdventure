@@ -94,25 +94,5 @@ local actions = {
       print("You didn't find anything unusual.")
     end
   end,
-  
-useSkill = function(skill, target)
-        local currentRoom = rooms[player.currentRoom]
-        local item = currentRoom.items and currentRoom.items[target]
-        if item and item.interactions and item.interactions[skill] then
-            local roll = rollD20() + player.skills[skill]
-            if roll >= 10 then
-                if type(item.interactions[skill].success) == "function" then
-                    item.interactions[skill].success()
-                else
-                    print(item.interactions[skill].success)
-                end
-            else
-                print(item.interactions[skill].fail)
-            end
-        else
-            print("You can't use that skill here.")
-        end
-    end,
-
 }
 return actions

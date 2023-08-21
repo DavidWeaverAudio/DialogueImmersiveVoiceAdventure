@@ -31,19 +31,9 @@ local rooms = {
         description = "The sign reads: 'Welcome to Barovia.'",
       },
       cow = {
-                description = "A calm-looking cow grazes here.",
-                interactions = {
-                    animalHandling = {
-                        success = function()
-                            print("You successfully calm the cow and it seems to trust you. It nudges you with its head, drawing your attention to its bell.")
-                            GetRooms().introduction.items.bell = {
-                                description = "A shiny bell that was hanging around the cow's neck."
-                            }
-                        end,
-                        fail = "The cow seems agitated by your approach."
-                    }
-                }
-            },
+        description = "A calm-looking cow grazes here.",
+        interactions = {}
+      },
     },
   },
 
@@ -108,5 +98,5 @@ function DisplayRoomDescription(player)
 end
 
 function GetFullRoomDescription(player)
-print(getRoomDescription(rooms[player.currentRoom]))
+  print(getRoomDescription(rooms[player.currentRoom]))
 end
