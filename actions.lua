@@ -24,6 +24,10 @@ local actions = {
     GetFullRoomDescription(player)
   end,
 
+  whereis = function()
+    GetAllRoomExits(player)
+  end,
+
   go = function(destination)
     if destination == "back" then
       if #player.roomHistory > 0 then
