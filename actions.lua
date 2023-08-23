@@ -1,5 +1,6 @@
 local player = require("player")
 local rooms = require("rooms")
+local objects = require("objects")
 
 local function rollD20()
   return math.random(1, 20)
@@ -99,4 +100,8 @@ local actions = {
     end
   end,
 }
-return actions
+
+function DoAction(verb, target, location)
+  print(string.format("We tried to do %s, to %s at %s", verb, target, location))
+  print(objects[target].usagePhrases[verb])
+end

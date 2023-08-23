@@ -1,8 +1,10 @@
+local objects = require("objects")
+
 function getRoomDescription(room)
   local description = room.description
   if room.items then
-    for item, details in pairs(room.items) do
-      description = description .. "\nYou see a " .. item .. " here."
+    for k, v in pairs(room.items) do
+      print(v.description)
     end
   end
   return description
@@ -29,13 +31,7 @@ local rooms = {
     },
     investigationDC = 18,
     items = {
-      sign = {
-        description = "The sign reads: 'Welcome to Barovia.'",
-      },
-      cow = {
-        description = "A calm-looking cow grazes here.",
-        interactions = {}
-      },
+      objects["sign"],
     },
   },
 

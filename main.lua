@@ -3,6 +3,7 @@ local actions = require("actions")
 local player = require("player")
 local npcs = require("npc")
 local verbs = require("verbs")
+local objects = require("objects")
 
 while true do
   DisplayRoomDescription(player)
@@ -37,4 +38,6 @@ while true do
     print(verbCount, targetCount, locationCount)
     print(verb, target, location)
   end
+
+  DoAction(verb, target, location)
 end

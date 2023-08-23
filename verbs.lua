@@ -1,3 +1,5 @@
+local objects = require("objects")
+
 local verbs = {
   ["bake"] = "bake",
   ["bathe"] = "bathe",
@@ -151,14 +153,6 @@ local verbs = {
   ["yell"] = "yell",
 }
 
-local targets = {
-  ["sign"] = true,
-  ["friend"] = true,
-  ["front door"] = true,
-  ["book"] = true,
-  -- ... add more targets as needed
-}
-
 local locations = {
   ["village"] = true,
   ["hill"] = true,
@@ -181,18 +175,18 @@ local function analyze(tokens)
   }
 
   local i = 1
+
   while i <= #tokens do
     local token = tokens[i]
     local nextToken = tokens[i + 1]
     local combinedToken = token .. " " .. (nextToken or "")
-
-    if targets[combinedToken] then
+    if objects[combinedToken] then
       table.insert(result.targets, combinedToken)
       i = i + 2 -- skip the next token since we've combined it
     elseif verbs[token] then
       table.insert(result.verbs, token)
       i = i + 1
-    elseif targets[token] then
+    elseif objects[token] then
       table.insert(result.targets, token)
       i = i + 1
     elseif locations[token] then
@@ -227,3 +221,5 @@ function TokenizeInput(input)
   local numLocations = countElementsInConcatenatedString(tokenizedInput.locations[1])
   return tokenizedInput, numVerbs, numTargets, numLocations
 end
+
+
