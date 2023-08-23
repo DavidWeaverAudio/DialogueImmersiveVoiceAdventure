@@ -102,6 +102,5 @@ local actions = {
 }
 
 function DoAction(verb, target, location)
-  print(string.format("We tried to do %s, to %s at %s", verb, target, location))
   print(objects[target].usagePhrases[verb])
 end

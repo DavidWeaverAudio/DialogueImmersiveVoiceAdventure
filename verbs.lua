@@ -221,5 +221,3 @@ function TokenizeInput(input)
   local numLocations = countElementsInConcatenatedString(tokenizedInput.locations[1])
   return tokenizedInput, numVerbs, numTargets, numLocations
 end
-
-
